@@ -11,19 +11,25 @@
         <HamburgerMenu @isOpen="chenge" :show="this.show"></HamburgerMenu>
       </div>
     </div>
+    <transition>
+      <HeaderModal v-if="isShow ? true : false"></HeaderModal>
+    </transition>
   </header>
 </template>
 
 <script>
-import HamburgerMenu from '../Parts/HamburgerMenu.vue'
+import HamburgerMenu from './HamburgerMenu.vue'
+import HeaderModal from './HedaerModal.vue'
 
 export default {
   components: {
     HamburgerMenu,
+    HeaderModal
   },
   data() {
     return {
       show: true,
+      isShow: true,
     }
   },
   methods: {
