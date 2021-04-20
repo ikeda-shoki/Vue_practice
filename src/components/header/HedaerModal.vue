@@ -1,16 +1,21 @@
 <template>
-  <div class="header-modal">
+  <div class="header-modal" @click.self="modalClose">
     <div class="header-menu">
       <transition enter-active-class="animate__animated animate__bounce">
         <h2 class="animate__animated animate__bounce">Menu</h2>
       </transition>
       <ul class="header-lists">
-        <div class="header-list" v-for="list in lists" :key="list">
-          <li>
-            {{ list }}
-          </li>
-          <span class="header-list-line"></span>
-          <span class="header-list-circle"></span>
+        <div :class="['header-list-' + index]" v-for="(list, index) in lists" :key="list.title"
+             @mouseover="mouseOverAction(index)" @mouseout="mouseLeaveAction(index)" @click="modalClose">
+          <router-link :to="list.path" tag="div" class="header-list-link" active-class="link--active">
+            <div class="header-list">
+              <li>
+                {{ list.title }}
+              </li>
+              <span class="header-list-line" :class="{ 'line-hover': list.hover }"></span>
+              <span class="header-list-circle" :class="{ 'circle-hover': list.hover }"></span>
+            </div>
+          </router-link>
         </div>
       </ul>
     </div>
@@ -21,10 +26,36 @@
 export default {
   data() {
     return {
-      lists: [
-        "About",
-        "Profile",
-      ]
+      lists: [{
+        title: "Home",
+        hover: false,
+        path: "/",
+      },
+      {
+        title: "About",
+        hover: false,
+        path: "/about"
+      }, {
+        title: "Profile",
+        hover: false,
+        path: "/profile",
+      }],
+    }
+  },
+  props: {
+    isModal: {
+      type: Boolean,
+    }
+  },
+  methods: {
+    modalClose() {
+      this.$emit("modalClose", !this.isModal)
+    },
+    mouseOverAction(index){
+      this.lists[index].hover = !this.lists[index].hover
+    },
+    mouseLeaveAction(index){
+      this.lists[index].hover = !this.lists[index].hover
     }
   }
 }
@@ -68,15 +99,24 @@ export default {
       width: 80px;
     }
 
+    .header-list-link {
+      cursor: pointer;
+    }
+
     .header-list {
       display: flex;
       position: relative;
 
       .header-list-line {
         height: 1px;
-        width: 60%;
+        width: 30%;
         background-color: $white-font;
         margin: 13px 0 0 30px;
+        transition: all 1s;
+      }
+
+      .line-hover {
+        width: 60%;
       }
 
       .header-list-circle {
@@ -87,7 +127,18 @@ export default {
         position: absolute;
         right: 0px;
         top: 3px;
+        transition: all .8s .5s;
       }
+
+      .circle-hover {
+        background-color: $accent-color;
+      }
+    }
+  }
+
+  .link--active {
+    .header-list-circle {
+      background-color: $white-font;
     }
   }
 </style>

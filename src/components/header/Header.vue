@@ -8,11 +8,11 @@
         <transition name="fade" mode="out-in">
           <p v-show="show">Menu</p>
         </transition>
-        <HamburgerMenu @isOpen="chenge" :show="this.show"></HamburgerMenu>
+        <HamburgerMenu @isFade="chenge" :show="this.show" :isHamburgerMenu="this.isHamburgerMenu"></HamburgerMenu>
       </div>
     </div>
-    <transition>
-      <HeaderModal v-if="isShow ? true : false"></HeaderModal>
+    <transition name="fade" mode="out-in">
+      <HeaderModal v-if="isShow ? true : false" :isModal="this.isShow" @modalClose="close"></HeaderModal>
     </transition>
   </header>
 </template>
@@ -29,12 +29,20 @@ export default {
   data() {
     return {
       show: true,
-      isShow: true,
+      isShow: false,
+      isHamburgerMenu: false,
     }
   },
   methods: {
     chenge(value) {
       this.show = value;
+      this.isShow = !this.isShow;
+      this.isHamburgerMenu = !this.isHamburgerMenu
+    },
+    close(value) {
+      this.isShow = value;
+      this.show = !this.show
+      this.isHamburgerMenu = !this.isHamburgerMenu
     }
   }
 }

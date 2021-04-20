@@ -1,5 +1,5 @@
 <template>
-  <div id="hamburger-menu" :class="{ active: isActive }" @click="crossOpen">
+  <div id="hamburger-menu" :class="{ active: isHamburgerMenu }" @click="crossOpen">
     <span></span>
     <span></span>
     <span></span>
@@ -10,19 +10,21 @@
 export default {
   data() {
     return {
-      isActive: false,
     }
   },
   methods: {
     crossOpen() {
       this.isActive = !this.isActive
-      this.$emit("isOpen", !this.show)
+      this.$emit("isFade", !this.show)
     }
   },
   props: {
     show: {
       type: Boolean
-    }
+    },
+    isHamburgerMenu: {
+      required: true,
+    },
   }
 }
 </script>
