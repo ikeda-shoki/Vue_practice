@@ -1,13 +1,11 @@
 <template>
   <div class="header-modal" @click.self="modalClose">
     <div class="header-menu">
-      <transition enter-active-class="animate__animated animate__bounce">
-        <h2 class="animate__animated animate__bounce">Menu</h2>
-      </transition>
+      <h2 class="animate__animated animate__bounce">Menu</h2>
       <ul class="header-lists">
         <div :class="['header-list-' + index]" v-for="(list, index) in lists" :key="list.title"
              @mouseover="mouseOverAction(index)" @mouseout="mouseLeaveAction(index)" @click="modalClose">
-          <router-link :to="list.path" tag="div" class="header-list-link" active-class="link--active">
+          <router-link :to="list.path" tag="div" class="header-list-link" active-class="link--active" exact>
             <div class="header-list">
               <li>
                 {{ list.title }}
@@ -62,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $background-color: #e9e3df;
+  $background-color: #161615;
   $main-color: #d3a760;
   $accent-color: #95681f;
   $font-color: #3e1300;
@@ -75,7 +73,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: $background-color;
     justify-content: center;
   }
 

@@ -1,12 +1,19 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <HomeMain></HomeMain>
+    <HomeSkill></HomeSkill>
   </div>
 </template>
 
 <script>
-export default {
+import HomeMain from '../components/HomePart/HomeMain.vue'
+import HomeSkill from '../components/HomePart/HomeSkill.vue'
 
+export default {
+  components: {
+    HomeMain,
+    HomeSkill
+  }
 }
 </script>
 
